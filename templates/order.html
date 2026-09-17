@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>Commander</span></div>
+      <h1>Commande en ligne</h1>
+    </div>
+    <p>Choisissez vos plats, ajustez vos quantités et passez votre commande en quelques clics.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container order-layout">
+    <div class="order-panel">
+      <div class="section-header" style="margin-bottom:16px;">
+        <div><div class="eyebrow">Catalogue</div><h2>Nos produits</h2></div>
+      </div>
+      <div class="product-grid">
+        {% for product in products %}
+        <article class="product-card">
+          <picture>
+            <img src="{{ product.image }}" alt="{{ product.name.get(lang, product.name.get('fr')) }}" />
+            {% if product.popular %}<span class="badge">Popular</span>{% endif %}
+          </picture>
+          <div class="product-body">
+            <div class="product-topline">
+              <span class="product-meta">{{ product.category }}</span>
+              <span class="product-price">{{ '%.2f'|format(product.price) }} MAD</span>
+            </div>
+            <h3>{{ product.name.get(lang, product.name.get('fr')) }}</h3>
+            <p>{{ product.description.get(lang, product.description.get('fr'))[:100] }}...</p>
+            <div style="display:flex; gap:12px; margin-top:12px;">
+              <a href="{{ url_for('product_detail', product_id=product.id) }}" class="button light" style="flex:1;">Voir le détail</a>
+              <button class="button dark" data-add-to-cart data-product-id="{{ product.id }}" data-quantity="1" style="flex:1;">Ajouter</button>
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      <div class="cart-items" data-cart-list style="margin-top:32px;"></div>
+    </div>
+
+    <aside class="checkout-card">
+      <div class="eyebrow">WhatsApp</div>
+      <h3>Envoyer votre demande</h3>
+      <p>Remplissez vos coordonnées. Votre commande sera préparée dans un message WhatsApp clair, sans paiement en ligne.</p>
+      <div class="summary-row"><span>Sous-total</span><strong data-cart-total>0.00 MAD</strong></div>
+      <div class="summary-row total"><span>Total</span><strong data-cart-total-final>0.00 MAD</strong></div>
+      <form data-order-form>
+        <div class="form-grid">
+          <label>Nom complet
+            <input type="text" name="customer_name" required />
+          </label>
+          <label>Téléphone
+            <input type="tel" name="phone" required />
+          </label>
+          <label>Ville / quartier
+            <input type="text" name="city" placeholder="Casablanca, Maarif" required />
+          </label>
+          <label>Adresse de livraison
+            <textarea name="delivery_address" rows="2" required placeholder="Adresse complète"></textarea>
+          </label>
+          <div class="form-grid two-col">
+            <label>Date souhaitée
+              <input type="date" name="preferred_date" required />
+            </label>
+            <label>Heure souhaitée
+              <input type="time" name="preferred_time" required />
+            </label>
+          </div>
+          <label>Message ou notes
+            <textarea name="notes" rows="3" placeholder="Préférences, instructions, détails..."></textarea>
+          </label>
+          <input type="hidden" name="items" value="[]" />
+          <input type="hidden" name="total" value="0" />
+        </div>
+        <button type="submit" class="button accent" style="width:100%; margin-top:20px;">Commander sur WhatsApp</button>
+      </form>
+    </aside>
+  </div>
+</section>
+{% endblock %}

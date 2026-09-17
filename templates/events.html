@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>Événements</span></div>
+      <h1>Des moments festifs pensés pour être mémorables.</h1>
+    </div>
+    <p>Que ce soit un mariage, un anniversaire, une réception d’entreprise ou un événement privé, nous construisons une expérience élégante et sans stress.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="grid-3">
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80" alt="Mariage" />
+        <div class="card-body">
+          <span class="event-pill">Mariages</span>
+          <h3>Événements de prestige</h3>
+          <p>Menus raffinés, accueil à la hauteur et service discret pour célébrer votre union.</p>
+        </div>
+      </article>
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=1000&q=80" alt="Anniversaire" />
+        <div class="card-body">
+          <span class="event-pill">Anniversaires</span>
+          <h3>Soirées inoubliables</h3>
+          <p>Concepts festifs personnalisés avec table, buffet et desserts adaptés à vos invités.</p>
+        </div>
+      </article>
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1000&q=80" alt="Corporate" />
+        <div class="card-body">
+          <span class="event-pill">Professionnels</span>
+          <h3>Réceptions d’entreprise</h3>
+          <p>Une organisation impeccable pour exposés, séminaires, lancements et réunions prestigieuses.</p>
+        </div>
+      </article>
+    </div>
+    {% set managed_events = cms_content|selectattr('content_type', 'equalto', 'event')|list %}
+    {% if managed_events %}<div class="grid-3 managed-content-grid">{% for item in managed_events %}<article class="event-card">{% if item.image %}<img src="{{ item.image }}" alt="{{ item['title_' ~ lang] or item.title }}" />{% endif %}<div class="card-body"><span class="event-pill">Événement</span><h3>{{ item['title_' ~ lang] or item.title }}</h3><p>{{ item['body_' ~ lang] or item.body }}</p></div></article>{% endfor %}</div>{% endif %}
+  </div>
+</section>
+
+<section style="background: rgba(255,255,255,0.3);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Process</div>
+        <h2>Notre méthode</h2>
+      </div>
+    </div>
+    <div class="grid-3">
+      <article class="info-card">
+        <div class="icon">1</div>
+        <h3>Écoute</h3>
+        <p>Nous identifions le style de votre événement, votre nombre d’invités et votre budget.</p>
+      </article>
+      <article class="info-card">
+        <div class="icon">2</div>
+        <h3>Proposition</h3>
+        <p>Nous vous préparons un menu, un service et une offre correspondant à votre vision.</p>
+      </article>
+      <article class="info-card">
+        <div class="icon">3</div>
+        <h3>Réalisation</h3>
+        <p>Nous assurons la préparation, la livraison et le service final avec soin et ponctualité.</p>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}

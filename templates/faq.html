@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>FAQ</span></div>
+      <h1>Questions fréquentes</h1>
+    </div>
+    <p>Tout ce qu’il faut savoir avant de réserver, commander ou organiser votre événement.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="faq-list">
+      <article class="faq-item">
+        <h3>Quels types d’événements prenez-vous en charge ?</h3>
+        <p>Nous intervenons pour les mariages, anniversaires, événements privés, entreprises, fêtes familiales et réceptions sur mesure.</p>
+      </article>
+      <article class="faq-item">
+        <h3>Peut-on commander en ligne pour un repas ?</h3>
+        <p>Oui. Le site propose un catalogue simple, avec ajout au panier, quantité et validation de commande.</p>
+      </article>
+      <article class="faq-item">
+        <h3>Travaillez-vous dans Casablanca et ses environs ?</h3>
+        <p>Oui. Nous intervenons à Casablanca et dans la région proche, avec service sur mesure selon le lieu et le nombre d’invités.</p>
+      </article>
+      <article class="faq-item">
+        <h3>Comment obtenir un devis pour un événement ?</h3>
+        <p>Vous pouvez remplir le formulaire de réservation ou nous contacter directement sur WhatsApp pour un devis rapide.</p>
+      </article>
+      {% for item in cms_content if item.content_type == 'faq' %}<article class="faq-item"><h3>{{ item['title_' ~ lang] or item.title }}</h3><p>{{ item['body_' ~ lang] or item.body }}</p></article>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

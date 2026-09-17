@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>Galerie</span></div>
+      <h1>Quelques scènes de nos tables et événements.</h1>
+    </div>
+    <p>Une sélection de moments partagés, de menus généreux et de présentations soignées.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="gallery-grid">
+      {% for image in [
+        'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1000&q=80',
+        'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1000&q=80',
+        'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1000&q=80',
+        'https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1000&q=80',
+        'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1000&q=80',
+        'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80'
+      ] %}
+      <article class="gallery-card">
+        <img src="{{ image }}" alt="Traiteur Lounna Casa" />
+      </article>
+      {% endfor %}
+      {% for item in cms_content if item.content_type == 'gallery' and item.image %}<article class="gallery-card"><img src="{{ item.image }}" alt="{{ item['title_' ~ lang] or item.title }}" /></article>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>Contact</span></div>
+      <h1>Discutons votre projet et vos envies.</h1>
+    </div>
+    <p>Notre équipe vous répond avec sérieux et rapidité pour préparer votre commande ou votre événement.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container contact-layout">
+    <div class="contact-box">
+      <div class="eyebrow">Informations</div>
+      <h3>Nous contacter</h3>
+      <ul>
+        <li>📍 Casablanca, région de Casablanca</li>
+        <li>📞 +212 713 915 287</li>
+        <li>📧 contact@traiteurlounnacasa.ma</li>
+        <li>💬 WhatsApp direct</li>
+      </ul>
+      <a href="https://wa.me/212713915287" target="_blank" rel="noopener" class="button accent" style="margin-top:18px;">Ouvrir WhatsApp</a>
+    </div>
+
+    <div class="reservation-box">
+      <div class="eyebrow">Message</div>
+      <h3>Formulaire de contact</h3>
+      <form id="contactForm" class="form-grid">
+        <div class="form-grid two-col">
+          <label>Nom
+            <input type="text" name="name" required />
+          </label>
+          <label>Email
+            <input type="email" name="email" />
+          </label>
+        </div>
+        <div class="form-grid two-col">
+          <label>Téléphone
+            <input type="tel" name="phone" />
+          </label>
+          <label>Objet
+            <input type="text" name="subject" />
+          </label>
+        </div>
+        <label>Votre message
+          <textarea name="message" required></textarea>
+        </label>
+        <button type="submit" class="button accent">Envoyer</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.getElementById('contactForm')?.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const form = new FormData(this);
+    const payload = Object.fromEntries(form.entries());
+
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      body: new URLSearchParams(payload)
+    });
+    const data = await response.json();
+    alert(data.message || 'Votre message a bien été envoyé.');
+    if (data.success) this.reset();
+  });
+</script>
+{% endblock %}

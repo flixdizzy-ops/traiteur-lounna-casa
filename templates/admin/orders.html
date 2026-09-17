@@ -1,0 +1,43 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card">
+  <div class="eyebrow">Commandes</div>
+  <h3>Liste des commandes</h3>
+  {% if orders %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Téléphone</th>
+          <th>Ville</th>
+          <th>Adresse</th>
+          <th>Date souhaitée</th>
+          <th>Notes</th>
+          <th>Statut</th>
+          <th>Actions</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.customer_name }}</td>
+          <td>{{ order.phone }}</td>
+          <td>{{ order.city or '-' }}</td>
+          <td>{{ order.address or '-' }}</td>
+          <td>{{ order.preferred_datetime or '-' }}</td>
+          <td>{{ order.notes or '-' }}</td>
+          <td><form method="post" action="{{ url_for('admin_order_status', order_id=order.id) }}"><select name="status" onchange="this.form.submit()"><option value="new" {% if order.status == 'new' %}selected{% endif %}>Nouveau</option><option value="confirmed" {% if order.status == 'confirmed' %}selected{% endif %}>Confirmée</option><option value="completed" {% if order.status == 'completed' %}selected{% endif %}>Terminée</option><option value="cancelled" {% if order.status == 'cancelled' %}selected{% endif %}>Annulée</option></select></form></td>
+          <td><form method="post" action="{{ url_for('admin_order_delete', order_id=order.id) }}"><button class="button small dark" type="submit">Archiver</button></form></td>
+          <td>{{ '%.2f'|format(order.total) }} MAD</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">Aucune commande pour le moment.</div>
+  {% endif %}
+</div>
+{% endblock %}

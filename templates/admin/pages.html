@@ -1,0 +1,12 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card"><div class="eyebrow">Pages Manager</div><h3>Créer une page publique</h3>
+<form method="post" enctype="multipart/form-data" class="form-grid">
+  <div class="form-grid two-col"><label>Nom interne<input name="name" required placeholder="Notre histoire" /></label><label>Slug URL<input name="slug" required placeholder="notre-histoire" pattern="[a-z0-9-]+" /></label></div>
+  <div class="form-grid two-col"><label>Titre FR<input name="title_fr" required /></label><label>Titre AR<input name="title_ar" /></label></div><label>Titre EN<input name="title_en" /></label>
+  <div class="form-grid two-col"><label>Contenu FR<textarea name="content_fr" required></textarea></label><label>Contenu AR<textarea name="content_ar"></textarea></label></div><label>Contenu EN<textarea name="content_en"></textarea></label>
+  <label>Image<input type="file" name="image_file" accept="image/jpeg,image/png,image/webp" /></label><div class="form-grid two-col"><label><input type="checkbox" name="active" checked /> Active</label><label><input type="checkbox" name="nav_visible" /> Afficher dans la navigation</label></div><label><input type="checkbox" name="footer_visible" /> Afficher dans le footer</label><label>Ordre<input type="number" name="sort_order" value="0" /></label>
+  <button class="button accent" type="submit">Créer la page</button>
+</form></div>
+<div class="admin-card"><h3>Pages publiées</h3><div class="table-wrap"><table><thead><tr><th>Nom</th><th>URL</th><th>État</th><th>Actions</th></tr></thead><tbody>{% for page in pages %}<tr><td>{{ page.name }}</td><td><a href="{{ url_for('dynamic_page', slug=page.slug) }}" target="_blank">/page/{{ page.slug }}</a></td><td>{{ 'Active' if page.active else 'Inactive' }}</td><td class="table-actions"><a class="button small light" href="{{ url_for('admin_page_edit', page_id=page.id) }}">Modifier</a><form method="post" action="{{ url_for('admin_page_delete', page_id=page.id) }}"><button class="button small dark" type="submit">Supprimer</button></form></td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

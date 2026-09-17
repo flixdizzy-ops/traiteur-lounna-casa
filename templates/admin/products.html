@@ -1,0 +1,41 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card">
+  <div class="section-header" style="margin-bottom:18px;">
+    <div>
+      <div class="eyebrow">Catalogue</div>
+      <h3>Produits</h3>
+    </div>
+    <a href="{{ url_for('admin_product_form') }}" class="button accent">Ajouter un produit</a>
+  </div>
+
+  {% if products %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Catégorie</th>
+          <th>Prix</th>
+          <th>Image</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{ product.name.get('fr', product.name.get('en')) }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ '%.2f'|format(product.price) }} MAD</td>
+          <td><img src="{{ product.image }}" alt="{{ product.name.get('fr') }}" style="width:60px; height:60px; object-fit:cover; border-radius:12px;" /></td>
+          <td class="table-actions"><a class="button small light" href="{{ url_for('admin_product_edit', product_id=product.id) }}">Modifier</a><form method="post" action="{{ url_for('admin_product_duplicate', product_id=product.id) }}"><button class="button small light" type="submit">Dupliquer</button></form><form method="post" action="{{ url_for('admin_product_toggle', product_id=product.id) }}"><button class="button small light" type="submit">Activer/désactiver</button></form><form method="post" action="{{ url_for('admin_product_delete', product_id=product.id) }}" onsubmit="return confirm('Supprimer ce produit ?');"><button class="button small dark" type="submit">Supprimer</button></form></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">Aucun produit enregistré.</div>
+  {% endif %}
+</div>
+{% endblock %}

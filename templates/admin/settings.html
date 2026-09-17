@@ -1,0 +1,46 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card">
+  <div class="eyebrow">Paramètres</div>
+  <h3>Site, SEO, coordonnées et réseaux sociaux</h3>
+  <form method="post" class="form-grid" enctype="multipart/form-data">
+    <div class="form-grid two-col"><label>Nom de l’entreprise<input name="company_name" value="{{ settings.get('company_name', 'TRAITEUR LOUNNA CASA') }}" /></label><label>Titre du site<input name="website_title" value="{{ settings.get('website_title', 'TRAITEUR LOUNNA CASA') }}" /></label></div>
+    <label>Description SEO<textarea name="website_description">{{ settings.get('website_description', '') }}</textarea></label>
+    <label>Mots-clés SEO<input name="keywords" value="{{ settings.get('keywords', '') }}" /></label>
+    <div class="form-grid two-col"><label>Titre hero FR<input name="hero_title_fr" value="{{ settings.get('hero_title_fr', '') }}" /></label><label>Titre hero AR<input name="hero_title_ar" value="{{ settings.get('hero_title_ar', '') }}" /></label></div><label>Titre hero EN<input name="hero_title_en" value="{{ settings.get('hero_title_en', '') }}" /></label>
+    <div class="form-grid two-col"><label>Description hero FR<textarea name="hero_text_fr">{{ settings.get('hero_text_fr', '') }}</textarea></label><label>Description hero AR<textarea name="hero_text_ar">{{ settings.get('hero_text_ar', '') }}</textarea></label></div><label>Description hero EN<textarea name="hero_text_en">{{ settings.get('hero_text_en', '') }}</textarea></label>
+    <div class="form-grid two-col"><label>Libellé bouton hero<input name="hero_button_label" value="{{ settings.get('hero_button_label', '') }}" /></label><label>Lien bouton hero<input name="hero_button_url" value="{{ settings.get('hero_button_url', '/menu') }}" /></label></div>
+    <div class="form-grid two-col"><label>Logo<input type="file" name="logo" accept="image/jpeg,image/png,image/webp" />{% if settings.get('logo') %}<img class="upload-preview" src="{{ settings.get('logo') }}" alt="Logo actuel" />{% endif %}</label><label>Favicon<input type="file" name="favicon" accept="image/jpeg,image/png,image/webp" />{% if settings.get('favicon') %}<img class="upload-preview" src="{{ settings.get('favicon') }}" alt="Favicon actuel" />{% endif %}</label></div>
+    <label>Image hero<input type="file" name="hero_image" accept="image/jpeg,image/png,image/webp" />{% if settings.get('hero_image') %}<img class="upload-preview" src="{{ settings.get('hero_image') }}" alt="Hero actuel" />{% endif %}</label>
+    <div class="form-grid two-col">
+      <label>Téléphone
+        <input type="text" name="phone" value="{{ settings.get('phone', '+212 713 915 287') }}" />
+      </label>
+      <label>Email
+        <input type="email" name="email" value="{{ settings.get('email', 'contact@traiteurlounnacasa.ma') }}" />
+      </label>
+    </div>
+    <label>Google Maps<input type="url" name="maps_url" value="{{ settings.get('maps_url', '') }}" /></label>
+    <label>Adresse / localité
+      <input type="text" name="location" value="{{ settings.get('location', 'Casablanca, Maroc') }}" />
+    </label>
+    <div class="form-grid two-col">
+      <label>Instagram
+        <input type="url" name="instagram" value="{{ settings.get('instagram', 'https://www.instagram.com/traiteur_loubna_casa/') }}" />
+      </label>
+      <label>TikTok
+        <input type="url" name="tiktok" value="{{ settings.get('tiktok', 'https://www.tiktok.com/@traiteur_loubna_casa') }}" />
+      </label>
+    </div>
+    <div class="form-grid two-col"><label>Facebook<input type="url" name="facebook" value="{{ settings.get('facebook', '') }}" /></label><label>Autres réseaux<input type="url" name="other_social" value="{{ settings.get('other_social', '') }}" /></label></div>
+    <label>WhatsApp
+      <input type="url" name="whatsapp" value="{{ settings.get('whatsapp', 'https://wa.me/212713915287') }}" />
+    </label>
+    <label>Horaires d’ouverture<input name="business_hours" value="{{ settings.get('business_hours', '') }}" /></label>
+    <label>Information footer<textarea name="footer_text">{{ settings.get('footer_text', '') }}</textarea></label>
+    <label>Copyright<input name="copyright" value="{{ settings.get('copyright', '') }}" /></label>
+    <label>Image Open Graph<input type="file" name="og_image" accept="image/jpeg,image/png,image/webp" />{% if settings.get('og_image') %}<img class="upload-preview" src="{{ settings.get('og_image') }}" alt="Open Graph actuelle" />{% endif %}</label>
+    <button type="submit" class="button accent">Enregistrer</button>
+  </form>
+</div>
+{% endblock %}

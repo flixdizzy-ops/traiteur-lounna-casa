@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{% if lang == 'ar' %}rtl{% else %}ltr{% endif %}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ settings.get('website_description', 'TRAITEUR LOUNNA CASA - Traiteur premium à Casablanca pour mariages, événements privés, buffets et commandes de qualité.') }}" />
+    <meta name="keywords" content="{{ settings.get('keywords', 'traiteur Casablanca, cuisine marocaine, buffet mariage, catering') }}" />
+    <meta property="og:title" content="{{ page_title or settings.get('website_title', 'TRAITEUR LOUNNA CASA') }}" />
+    {% if settings.get('og_image') %}<meta property="og:image" content="{{ settings.get('og_image') }}" />{% endif %}
+    <title>{% if page_title %}{{ page_title }} | {% endif %}{{ settings.get('website_title', settings.get('company_name', 'TRAITEUR LOUNNA CASA')) }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="icon" href="{{ settings.get('favicon', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=120&q=80') }}" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <div class="topbar-item topbar-location">{% if lang == 'ar' %}الدار البيضاء والمنطقة{% else %}{{ settings.get('location', 'Casablanca & surrounding areas') }}{% endif %}</div>
+        <div class="topbar-item topbar-whatsapp">
+          <a href="{{ settings.get('whatsapp', 'https://wa.me/212713915287') }}" target="_blank" rel="noopener" aria-label="WhatsApp {{ settings.get('phone', '+212 713 915 287') }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .4 5.2.4 11.7c0 2.1.6 4.1 1.6 5.8L.3 23.9l6.5-1.7a11.7 11.7 0 0 0 5.3 1.3h.1c6.4 0 11.7-5.2 11.7-11.7 0-3.1-1.2-6-3.4-8.3ZM12.2 21.4c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.9 1 1-3.8-.2-.3a9.6 9.6 0 1 1 8.2 4.6Zm5.3-7.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.8-1.7.1-.2 0-.4 0-.6l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.2 3.3c.1.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4Z"/></svg>
+            <span>WhatsApp</span><strong>{{ settings.get('phone', '+212 713 915 287') }}</strong>
+          </a>
+        </div>
+        <div class="topbar-item topbar-phone"><a href="tel:{{ settings.get('phone', '+212713915287') }}">{{ settings.get('phone', '+212 713 915 287') }}</a></div>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="{{ url_for('home') }}" class="brand" aria-label="TRAITEUR LOUNNA CASA home">
+          {% if settings.get('logo') %}<img class="brand-logo" src="{{ settings.get('logo') }}" alt="{{ settings.get('company_name', 'TRAITEUR LOUNNA CASA') }}" />{% else %}<span class="brand-mark">TL</span>{% endif %}
+          <span class="brand-text">
+            <strong>TRAITEUR</strong>
+            <small>LOUNNA CASA</small>
+          </span>
+        </a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="{{ url_for('home') }}">{{ translations.get('nav_home', 'Accueil') }}</a>
+          <a href="{{ url_for('about') }}">{{ translations.get('nav_about', 'À propos') }}</a>
+          <a href="{{ url_for('services') }}">{{ translations.get('nav_services', 'Services') }}</a>
+          <a href="{{ url_for('menu') }}">{{ translations.get('nav_menu', 'Menu') }}</a>
+          <a href="{{ url_for('events') }}">{{ translations.get('nav_events', 'Événements') }}</a>
+          <a href="{{ url_for('gallery') }}">{{ translations.get('nav_gallery', 'Galerie') }}</a>
+          <a href="{{ url_for('reservation_page') }}">{{ translations.get('nav_reservation', 'Réservation') }}</a>
+          <a href="{{ url_for('contact_page') }}">{{ translations.get('nav_contact', 'Contact') }}</a>
+          {% for item in navigation_items %}<a href="{{ item.url }}">{{ item.label|from_json if item.label.startswith('{') else item.label }}</a>{% endfor %}
+        </nav>
+
+        <div class="header-actions">
+          <div class="lang-switcher" aria-label="Language selector">
+            <a href="{{ url_for('set_language', lang='fr') }}" class="{% if lang == 'fr' %}active{% endif %}">FR</a>
+            <a href="{{ url_for('set_language', lang='ar') }}" class="{% if lang == 'ar' %}active{% endif %}">AR</a>
+            <a href="{{ url_for('set_language', lang='en') }}" class="{% if lang == 'en' %}active{% endif %}">EN</a>
+          </div>
+          <a href="{{ url_for('order_page') }}" class="button small dark">{{ translations.get('cta_order', 'Commander') }}</a>
+          <button type="button" class="nav-toggle" aria-label="Open menu">☰</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="cart-floating" id="cartFloating">
+      <a href="{{ url_for('order_page') }}" aria-label="Open cart">
+        <span class="cart-icon">🛒</span>
+        <span id="cartCount">0</span>
+      </a>
+    </div>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <a href="{{ url_for('home') }}" class="brand footer-brand">
+            {% if settings.get('logo') %}<img class="brand-logo" src="{{ settings.get('logo') }}" alt="{{ settings.get('company_name', 'TRAITEUR LOUNNA CASA') }}" />{% else %}<span class="brand-mark">TL</span>{% endif %}
+            <span class="brand-text">
+              <strong>TRAITEUR</strong>
+              <small>LOUNNA CASA</small>
+            </span>
+          </a>
+          <p>
+            {% if lang == 'ar' %}
+              تقديم مأكولات مغربية فاخرة ومناسبات مصممة بدقة في الدار البيضاء.
+            {% elif lang == 'en' %}
+              Premium Moroccan cuisine and bespoke events crafted with elegance in Casablanca.
+            {% else %}
+              Cuisine marocaine premium et événements sur mesure, conçus avec élégance à Casablanca.
+            {% endif %}
+          </p>
+        </div>
+
+        <div>
+          <h3>{% if lang == 'ar' %}روابط سريعة{% elif lang == 'en' %}Quick links{% else %}Liens rapides{% endif %}</h3>
+          <ul>
+            <li><a href="{{ url_for('about') }}">{{ translations.get('nav_about', 'À propos') }}</a></li>
+            <li><a href="{{ url_for('menu') }}">{{ translations.get('nav_menu', 'Menu') }}</a></li>
+            <li><a href="{{ url_for('events') }}">{{ translations.get('nav_events', 'Événements') }}</a></li>
+            <li><a href="{{ url_for('reservation_page') }}">{{ translations.get('nav_reservation', 'Réservation') }}</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>{% if lang == 'ar' %}تواصل{% elif lang == 'en' %}Contact{% else %}Contact{% endif %}</h3>
+          <ul>
+            <li><a href="tel:{{ settings.get('phone', '+212713915287') }}">{{ settings.get('phone', '+212 713 915 287') }}</a></li>
+            <li><a href="{{ settings.get('email', 'contact@traiteurlounnacasa.ma') }}">{{ settings.get('email', 'contact@traiteurlounnacasa.ma') }}</a></li>
+            <li>{{ settings.get('location', 'Casablanca, Maroc') }}</li>
+            {% if settings.get('business_hours') %}<li>{{ settings.get('business_hours') }}</li>{% endif %}
+          </ul>
+        </div>
+
+        <div>
+          <h3>{% if lang == 'ar' %}التواصل الاجتماعي{% elif lang == 'en' %}Social{% else %}Réseaux sociaux{% endif %}</h3>
+          <div class="social-icons" aria-label="Réseaux sociaux">
+            <a class="social-icon whatsapp" href="{{ settings.get('whatsapp', 'https://wa.me/212713915287') }}" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .4 5.2.4 11.7c0 2.1.6 4.1 1.6 5.8L.3 23.9l6.5-1.7a11.7 11.7 0 0 0 5.3 1.3h.1c6.4 0 11.7-5.2 11.7-11.7 0-3.1-1.2-6-3.4-8.3ZM12.2 21.4c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.9 1 1-3.8-.2-.3a9.6 9.6 0 1 1 8.2 4.6Zm5.3-7.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.8-1.7.1-.2 0-.4 0-.6l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.1 3.1 1.2 3.3c.1.2 2.1 3.2 5.1 4.5 1.9.8 2.6.9 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4Z"/></svg></a>
+            <a class="social-icon instagram" href="{{ settings.get('instagram', 'https://www.instagram.com/traiteur_loubna_casa/') }}" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" class="social-fill"/></svg></a>
+            <a class="social-icon tiktok" href="{{ settings.get('tiktok', 'https://www.tiktok.com/@traiteur_loubna_casa/') }}" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3h3.1c.2 1.7 1.2 3.1 2.8 4v3.2c-1.1 0-2.2-.3-3.2-.8v6.2a5.4 5.4 0 1 1-4.7-5.3v3.3a2.2 2.2 0 1 0 1.9 2.2V3Z"/></svg></a>
+          </div>
+          {% for item in navigation_items if item.visible_footer %}<a class="footer-managed-link" href="{{ item.url }}">{{ item.label }}</a>{% endfor %}
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© {{ current_year }} TRAITEUR LOUNNA CASA</span>
+        <span>{{ translations.get('all_rights_reserved', 'Tous droits réservés') }}</span>
+      </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/language.js') }}"></script>
+  </body>
+</html>

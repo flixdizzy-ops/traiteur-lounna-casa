@@ -1,0 +1,33 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card">
+  <div class="eyebrow">Messages</div>
+  <h3>Messages de contact</h3>
+  {% if messages %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Email</th>
+          <th>Objet</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for message in messages %}
+        <tr>
+          <td>{{ message.name }}</td>
+          <td>{{ message.email or '-' }}</td>
+          <td>{{ message.subject or '-' }}</td>
+          <td>{{ message.message }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">Aucun message.</div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card">
+  <div class="eyebrow">Réservations</div>
+  <h3>Demandes d’événement</h3>
+  {% if reservations %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Lieu</th>
+          <th>Invités</th>
+          <th>Nom</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for reservation in reservations %}
+        <tr>
+          <td>{{ reservation.event_type }}</td>
+          <td>{{ reservation.event_date }}</td>
+          <td>{{ reservation.location }}</td>
+          <td>{{ reservation.guests }}</td>
+          <td>{{ reservation.name }}</td>
+          <td><form method="post" action="{{ url_for('admin_reservation_status', reservation_id=reservation.id) }}"><select name="status" onchange="this.form.submit()"><option value="new" {% if reservation.status == 'new' %}selected{% endif %}>Nouveau</option><option value="contacted" {% if reservation.status == 'contacted' %}selected{% endif %}>Contacté</option><option value="confirmed" {% if reservation.status == 'confirmed' %}selected{% endif %}>Confirmée</option><option value="closed" {% if reservation.status == 'closed' %}selected{% endif %}>Clôturée</option></select></form></td>
+          <td><form method="post" action="{{ url_for('admin_reservation_delete', reservation_id=reservation.id) }}"><button class="button small dark" type="submit">Archiver</button></form></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">Aucune réservation.</div>
+  {% endif %}
+</div>
+{% endblock %}

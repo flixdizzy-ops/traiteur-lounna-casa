@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>Menu</span></div>
+      <h1>Notre catalogue de produits et de plats signature.</h1>
+    </div>
+    <p>Des recettes généreuses, des saveurs généreuses et des menus pensés pour tous les moments de votre vie.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    {% if products %}
+    <div class="product-grid">
+      {% for product in products %}
+      <article class="product-card">
+        <picture>
+          <img src="{{ product.image }}" alt="{{ product.name.get(lang, product.name.get('fr')) }}" />
+          {% if product.popular %}<span class="badge">Popular</span>{% endif %}
+        </picture>
+        <div class="product-body">
+          <div class="product-topline">
+            <span class="product-meta">{{ product.category }}</span>
+            <span class="product-price">{{ '%.2f'|format(product.price) }} MAD</span>
+          </div>
+          <h3>{{ product.name.get(lang, product.name.get('fr')) }}</h3>
+          <p>{{ product.description.get(lang, product.description.get('fr')) }}</p>
+          <div style="display:flex; gap:12px; margin-top: 14px;">
+            <a href="{{ url_for('product_detail', product_id=product.id) }}" class="button light" style="flex:1;">{{ translations.get('view_details', 'Voir le détail') }}</a>
+            <button class="button dark" data-add-to-cart data-product-id="{{ product.id }}" data-quantity="1" style="flex:1;">{{ translations.get('add_to_cart', 'Ajouter au panier') }}</button>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">Aucun produit disponible pour le moment.</div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

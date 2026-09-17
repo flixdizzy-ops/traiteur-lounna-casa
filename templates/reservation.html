@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero reservation-hero">
+  <div class="reservation-hero-grain" aria-hidden="true"></div>
+  <div class="container page-hero-inner reservation-hero-inner">
+    <div class="reservation-hero-copy">
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a><span>/</span><span>Réservation</span></div>
+      <div class="eyebrow">L’art de recevoir</div>
+      <h1>Un moment qui mérite sa mise en scène.</h1>
+      <p>Partagez le type d’événement, la date, le lieu et le nombre d’invités pour obtenir un devis adapté.</p>
+      <div class="reservation-hero-meta">
+        <span>Casablanca</span><i></i><span>Sur mesure</span><i></i><span>Depuis 2012</span>
+      </div>
+    </div>
+    <div class="reservation-hero-scroll" aria-hidden="true"><span></span>Votre histoire commence ici</div>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container reservation-layout">
+    <div class="reservation-box">
+      <div class="eyebrow">Formulaire</div>
+      <h3>Demander un devis</h3>
+      <form id="reservationForm" class="form-grid">
+        <div class="form-grid two-col">
+          <label>Type d’événement
+            <select name="event_type" required>
+              <option value="">Choisir</option>
+              <option value="Mariage">Mariage</option>
+              <option value="Anniversaire">Anniversaire</option>
+              <option value="Entreprise">Entreprise</option>
+              <option value="Privé">Privé</option>
+            </select>
+          </label>
+          <label>Date souhaitée
+            <input type="date" name="event_date" required />
+          </label>
+        </div>
+
+        <div class="form-grid two-col">
+          <label>Lieu
+            <input type="text" name="location" placeholder="Casablanca, Maroc" required />
+          </label>
+          <label>Nombre de personnes
+            <input type="number" name="guests" min="10" required />
+          </label>
+        </div>
+
+        <div class="form-grid two-col">
+          <label>Services demandés
+            <input type="text" name="services" placeholder="Buffet, décoration, service" />
+          </label>
+          <label>Budget estimé
+            <input type="text" name="budget" placeholder="Ex. 20 000 MAD" />
+          </label>
+        </div>
+
+        <div class="form-grid two-col">
+          <label>Nom
+            <input type="text" name="name" required />
+          </label>
+          <label>Téléphone
+            <input type="tel" name="phone" required />
+          </label>
+        </div>
+
+        <label>Message complémentaire
+          <textarea name="message" placeholder="Détails, préférences, style souhaité..."></textarea>
+        </label>
+
+        <button type="submit" class="button accent">Réserver un événement</button>
+      </form>
+    </div>
+
+    <aside class="checkout-card">
+      <div class="eyebrow">Contact</div>
+      <h3>Besoin d’assistance rapide ?</h3>
+      <p>Notre équipe vous répond sous 24h pour organiser votre événement avec soin.</p>
+      <ul>
+        <li>📞 +212 713 915 287</li>
+        <li>📍 Casablanca, Maroc</li>
+        <li>💬 WhatsApp direct</li>
+      </ul>
+      <a href="https://wa.me/212713915287" target="_blank" rel="noopener" class="button light" style="width:100%; margin-top:12px;">Ouvrir WhatsApp</a>
+    </aside>
+  </div>
+</section>
+
+<script>
+  document.getElementById('reservationForm')?.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    const form = new FormData(this);
+    const payload = Object.fromEntries(form.entries());
+
+    const response = await fetch('/api/reservation', {
+      method: 'POST',
+      body: new URLSearchParams(payload)
+    });
+    const data = await response.json();
+    alert(data.message || 'Réservation enregistrée.');
+    if (data.success) this.reset();
+  });
+</script>
+{% endblock %}

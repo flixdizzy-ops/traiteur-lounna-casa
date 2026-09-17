@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if settings.get('hero_image') %}<style>.hero { background-image: linear-gradient(135deg, rgba(22,18,15,0.38), rgba(22,18,15,0.2)), url("{{ settings.get('hero_image') }}"); }</style>{% endif %}
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow">TRAITEUR LOUNNA CASA</div>
+      <h1>{{ settings.get('hero_title_' ~ lang, translations.get('hero_title', 'La table de vos célébrations, conçue avec élégance.')) }}</h1>
+      <p>{{ settings.get('hero_text_' ~ lang, translations.get('hero_text', 'Traiteur Lounna Casa crée des repas raffinés et des événements sur mesure à Casablanca et dans sa région.')) }}</p>
+      <div class="hero-cta">
+        <a href="{{ settings.get('hero_button_url', url_for('menu')) }}" class="button accent">{{ settings.get('hero_button_label', translations.get('discover_menu', 'Découvrir le menu')) }}</a>
+        <a href="{{ url_for('reservation_page') }}" class="button light">{{ translations.get('cta_reserve', 'Réserver un événement') }}</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80" alt="Cuisine marocaine raffinée" />
+    </div>
+  </div>
+</section>
+
+<div class="featured-strip">
+  <div class="container">
+    <span>✔ Gastronomie marocaine premium</span>
+    <span>✔ Service sur mesure</span>
+    <span>✔ Livraison et prestation événementielle</span>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">{{ translations.get('our_service', 'Notre service') }}</div>
+        <h2>Un service événementiel pensé pour chaque instant.</h2>
+      </div>
+      <a href="{{ url_for('services') }}" class="button light">Découvrir nos services</a>
+    </div>
+
+    <div class="grid-3">
+      <article class="info-card">
+        <div class="icon">🍽️</div>
+        <h3>Commandes premium</h3>
+        <p>Menus raffinés et plats préparés pour les repas familiaux, professionnels et festifs.</p>
+      </article>
+      <article class="info-card">
+        <div class="icon">🎉</div>
+        <h3>Cérémonies & mariages</h3>
+        <p>Tables élégantes, buffet traiteur et accueil sur mesure pour chaque type de célébration.</p>
+      </article>
+      <article class="info-card">
+        <div class="icon">👨‍🍳</div>
+        <h3>Service à la carte</h3>
+        <p>Une équipe dédiée, une cuisine soignée et un parcours client fluide du devis à la livraison.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section style="background: rgba(255,255,255,0.3);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Menu</div>
+        <h2>Nos signatures culinaires</h2>
+      </div>
+      <a href="{{ url_for('menu') }}" class="button light">Voir le catalogue</a>
+    </div>
+    <div class="product-grid">
+      {% for product in products[:6] %}
+      <article class="product-card">
+        <picture>
+          <img src="{{ product.image }}" alt="{{ product.name.get(lang, product.name.get('fr')) }}" />
+          {% if product.badge %}<span class="badge">{{ product.badge.get(lang, product.badge.get('fr')) }}</span>{% endif %}
+        </picture>
+        <div class="product-body">
+          <div class="product-topline">
+            <span class="product-meta">{{ product.category }}</span>
+            <span class="product-price">{{ '%.2f'|format(product.price) }} MAD</span>
+          </div>
+          <h3>{{ product.name.get(lang, product.name.get('fr')) }}</h3>
+          <p>{{ product.description.get(lang, product.description.get('fr'))[:120] }}{% if product.description.get(lang, product.description.get('fr'))|length > 120 %}...{% endif %}</p>
+          <a href="{{ url_for('product_detail', product_id=product.id) }}" class="button light">{{ translations.get('view_details', 'Voir le détail') }}</a>
+          <button class="button dark" data-add-to-cart data-product-id="{{ product.id }}" data-quantity="1">{{ translations.get('add_to_cart', 'Ajouter au panier') }}</button>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Pourquoi nous</div>
+        <h2>Une cuisine d’exception, un accueil irréprochable.</h2>
+      </div>
+    </div>
+    <div class="grid-4">
+      <div class="stat-panel">
+        <span class="stat-number">500+</span>
+        <p>événements réalisés</p>
+      </div>
+      <div class="stat-panel">
+        <span class="stat-number">12+</span>
+        <p>années d’expérience</p>
+      </div>
+      <div class="stat-panel">
+        <span class="stat-number">4.9/5</span>
+        <p>note client</p>
+      </div>
+      <div class="stat-panel">
+        <span class="stat-number">24h</span>
+        <p>réponse rapide</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Événements</div>
+        <h2>Des célébrations impeccables, de l’atelier à la table.</h2>
+      </div>
+      <a href="{{ url_for('events') }}" class="button light">Voir tous les événements</a>
+    </div>
+    <div class="grid-3">
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=1000&q=80" alt="Mariage" />
+        <div class="card-body">
+          <span class="event-pill">Mariage</span>
+          <h3>Tables de réception raffinées</h3>
+          <p>Un accueil chaleureux, une cuisine généreuse et une mise en scène parfaite pour votre grand jour.</p>
+        </div>
+      </article>
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=80" alt="Anniversaire" />
+        <div class="card-body">
+          <span class="event-pill">Anniversaire</span>
+          <h3>Moments de fête sur mesure</h3>
+          <p>Buffets élégants, desserts raffinés et ambiance raffinée pour les célébrations privées.</p>
+        </div>
+      </article>
+      <article class="event-card">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1000&q=80" alt="Corporate" />
+        <div class="card-body">
+          <span class="event-pill">Corporate</span>
+          <h3>Rendez-vous professionnels</h3>
+          <p>Une organisation impeccable pour séminaires, lancements, team building et réceptions d’entreprise.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section style="background: rgba(255,255,255,0.3);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Galerie</div>
+        <h2>Une cuisine et des occasions qui se racontent.</h2>
+      </div>
+      <a href="{{ url_for('gallery') }}" class="button light">Voir la galerie</a>
+    </div>
+    <div class="gallery-grid">
+      {% for item in [1,2,3,4,5,6] %}
+      <article class="gallery-card">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Présentation Traiteur" />
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="quote-banner">
+  <div class="container quote-banner-inner">
+    <div>
+      <div class="eyebrow" style="color: #f0d3a4;">Besoin d’un devis ?</div>
+      <h2>Notre équipe vous accompagne pour votre prochain événement.</h2>
+    </div>
+    <div class="hero-cta" style="margin: 0;">
+      <a href="{{ url_for('reservation_page') }}" class="button accent">{{ translations.get('cta_quote', 'Demander un devis') }}</a>
+      <a href="https://wa.me/212713915287" target="_blank" rel="noopener" class="button light">WhatsApp</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

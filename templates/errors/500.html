@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>500</span></div>
+      <h1>Une erreur technique est survenue</h1>
+    </div>
+    <p>Nous revoyons le service en ce moment.</p>
+  </div>
+</section>
+<section class="content-section">
+  <div class="container" style="text-align:center;">
+    <div class="empty-state">
+      <h3>Erreur 500</h3>
+      <p>Merci de réessayer dans quelques instants ou de nous contacter directement.</p>
+      <a href="{{ url_for('contact_page') }}" class="button accent">Nous contacter</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

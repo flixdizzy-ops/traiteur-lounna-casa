@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin TRAITEUR LOUNNA CASA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div class="container" style="padding: 32px 0;">
+      <div class="admin-layout">
+        <aside class="admin-sidebar">
+          <div class="brand" style="margin-bottom: 18px;">
+            {% if settings.get('logo') %}<img class="brand-logo" src="{{ settings.get('logo') }}" alt="{{ settings.get('company_name', 'TRAITEUR LOUNNA CASA') }}" />{% else %}<span class="brand-mark">TL</span>{% endif %}
+            <span class="brand-text">
+              <strong>TRAITEUR</strong>
+              <small>LOUNNA CASA</small>
+            </span>
+          </div>
+          <nav>
+            <a href="{{ url_for('admin_dashboard') }}" class="active">Dashboard</a>
+            <a href="{{ url_for('admin_products') }}">Produits</a>
+            <a href="{{ url_for('admin_categories') }}">Catégories</a>
+            <a href="{{ url_for('admin_content') }}">Contenu du site</a>
+            <a href="{{ url_for('admin_pages') }}">Pages</a>
+            <a href="{{ url_for('admin_navigation') }}">Navigation</a>
+            <a href="{{ url_for('admin_media') }}">Médiathèque</a>
+            <a href="{{ url_for('admin_orders') }}">Commandes</a>
+            <a href="{{ url_for('admin_reservations') }}">Réservations</a>
+            <a href="{{ url_for('admin_messages') }}">Messages</a>
+            <a href="{{ url_for('admin_settings') }}">Paramètres</a>
+            <a href="{{ url_for('admin_logout') }}">Déconnexion</a>
+          </nav>
+        </aside>
+
+        <main>
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

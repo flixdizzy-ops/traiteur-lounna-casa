@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>Services</span></div>
+      <h1>Des services haut de gamme pour chaque moment de célébration.</h1>
+    </div>
+    <p>Nous concevons des offres complètes allant de la commande quotidienne au service événementiel, avec un souci constant de qualité et de détail.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container">
+    <div class="grid-3">
+      <article class="service-card">
+        <div class="icon">🍲</div>
+        <h3>Traiteur à domicile</h3>
+        <p>Repas quotidiens et plats à partager pour les familles, les réunions conviviales et les tables de fête.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">💍</div>
+        <h3>Mariages & célébrations</h3>
+        <p>Menus personnalisés, buffets somptueux et mise en scène complète pour votre jour J.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">🏢</div>
+        <h3>Événements corporatifs</h3>
+        <p>Service professionnel pour conférences, lancements, séminaires, équipes et réceptions privées.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">🎂</div>
+        <h3>Anniversaires & fêtes</h3>
+        <p>Ambiance chaleureuse, petits déjeuners, goûters et buffets adaptés à la taille de la soirée.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">🍰</div>
+        <h3>Desserts & pâtisserie</h3>
+        <p>Assortiment de douceurs marocaines, pâtisseries artisanales et gâteaux de célébration.</p>
+      </article>
+      <article class="service-card">
+        <div class="icon">🚚</div>
+        <h3>Livraison & service</h3>
+        <p>Une organisation fluide de la commande au service, partout dans Casablanca et ses environs.</p>
+      </article>
+    </div>
+    {% set managed_services = cms_content|selectattr('content_type', 'equalto', 'service')|list %}
+    {% if managed_services %}<div class="grid-3 managed-content-grid">{% for item in managed_services %}<article class="service-card">{% if item.image %}<img src="{{ item.image }}" alt="{{ item['title_' ~ lang] or item.title }}" />{% endif %}<h3>{{ item['title_' ~ lang] or item.title }}</h3><p>{{ item['body_' ~ lang] or item.body }}</p></article>{% endfor %}</div>{% endif %}
+  </div>
+</section>
+{% endblock %}

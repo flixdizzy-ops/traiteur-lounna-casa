@@ -1,0 +1,5 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card"><div class="eyebrow">Médiathèque</div><h3>Importer une image</h3><form method="post" enctype="multipart/form-data" class="form-grid"><label>Fichier image<input type="file" name="file" accept="image/jpeg,image/png,image/webp" required /></label><button class="button accent" type="submit">Importer</button></form></div>
+<div class="media-grid">{% for item in media %}<article class="media-card"><img src="{{ item.url }}" alt="{{ item.filename }}" /><strong>{{ item.filename }}</strong><small>{{ item.mime_type }} · {{ item.file_size }} octets</small><form method="post" action="{{ url_for('admin_media_delete', media_id=item.id) }}"><button class="button small dark" type="submit">Supprimer</button></form></article>{% endfor %}</div>
+{% endblock %}

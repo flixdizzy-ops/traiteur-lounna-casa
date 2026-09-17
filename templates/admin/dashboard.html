@@ -1,0 +1,32 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="dashboard-grid">
+  <div class="admin-card">
+    <div class="eyebrow">Produits</div>
+    <h3>{{ products_count }}</h3>
+    <p>Produits référencés</p>
+  </div>
+  <div class="admin-card">
+    <div class="eyebrow">Commandes</div>
+    <h3>{{ orders_count }}</h3>
+    <p>Commandes reçues</p>
+  </div>
+  <div class="admin-card">
+    <div class="eyebrow">Réservations</div>
+    <h3>{{ reservations_count }}</h3>
+    <p>Demandes d’événement</p>
+  </div>
+  <div class="admin-card">
+    <div class="eyebrow">Messages</div>
+    <h3>{{ messages_count }}</h3>
+    <p>Messages clients</p>
+  </div>
+  <div class="admin-card"><div class="eyebrow">Catégories</div><h3>{{ categories_count }}</h3><p>Catégories actives</p></div>
+  <div class="admin-card"><div class="eyebrow">Pages</div><h3>{{ pages_count }}</h3><p>Pages publiées</p></div>
+</div>
+<div class="dashboard-columns">
+  <div class="admin-card"><div class="section-header"><div><div class="eyebrow">Activité</div><h3>Dernières commandes</h3></div><a class="button small light" href="{{ url_for('admin_orders') }}">Voir tout</a></div><div class="activity-list">{% for order in recent_orders %}<div><strong>#{{ order.id }} · {{ order.customer_name }}</strong><span>{{ '%.2f'|format(order.total) }} MAD · {{ order.status }}</span></div>{% else %}<p>Aucune commande.</p>{% endfor %}</div></div>
+  <div class="admin-card"><div class="section-header"><div><div class="eyebrow">Demandes</div><h3>Dernières réservations</h3></div><a class="button small light" href="{{ url_for('admin_reservations') }}">Voir tout</a></div><div class="activity-list">{% for reservation in recent_reservations %}<div><strong>{{ reservation.name }} · {{ reservation.event_type }}</strong><span>{{ reservation.status }}</span></div>{% else %}<p>Aucune réservation.</p>{% endfor %}</div></div>
+</div>
+<div class="admin-quick-actions"><a class="button accent" href="{{ url_for('admin_product_form') }}">Ajouter un produit</a><a class="button light" href="{{ url_for('admin_pages') }}">Créer une page</a><a class="button light" href="{{ url_for('admin_media') }}">Importer une image</a><a class="button light" href="{{ url_for('admin_settings') }}">Modifier les réglages</a></div>
+{% endblock %}

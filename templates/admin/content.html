@@ -1,0 +1,14 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div class="admin-card">
+  <div class="eyebrow">Contenu du site</div><h3>Services, événements, galerie, témoignages et FAQ</h3>
+  <form method="post" enctype="multipart/form-data" class="form-grid">
+    <div class="form-grid two-col"><label>Type<select name="content_type"><option value="service">Service</option><option value="event">Événement</option><option value="gallery">Galerie</option><option value="testimonial">Témoignage</option><option value="faq">FAQ</option><option value="text">Texte du site</option></select></label><label>Ordre<input type="number" name="sort_order" value="0" /></label></div>
+    <div class="form-grid two-col"><label>Titre FR<input name="title_fr" required /></label><label>Titre AR<input name="title_ar" /></label></div><label>Titre EN<input name="title_en" /></label>
+    <div class="form-grid two-col"><label>Contenu FR<textarea name="body_fr"></textarea></label><label>Contenu AR<textarea name="body_ar"></textarea></label></div><label>Contenu EN<textarea name="body_en"></textarea></label>
+    <div class="form-grid two-col"><label>Icône<input name="icon" placeholder="🍽️" /></label><label>Image<input type="file" name="image_file" accept="image/jpeg,image/png,image/webp" /></label></div><label><input type="checkbox" name="active" checked /> Actif</label>
+    <button class="button accent" type="submit">Ajouter au contenu</button>
+  </form>
+  <div class="table-wrap"><table><thead><tr><th>Type</th><th>Titre</th><th>Contenu</th><th>État</th><th>Action</th></tr></thead><tbody>{% for item in content_items %}<tr><td>{{ item.content_type }}</td><td>{{ item.title }}</td><td>{{ item.body }}</td><td>{{ 'Actif' if item.active else 'Inactif' }}</td><td class="table-actions"><a class="button small light" href="{{ url_for('admin_content_edit', item_id=item.id) }}">Modifier</a><form method="post" action="{{ url_for('admin_content_delete', item_id=item.id) }}"><button class="button small dark" type="submit">Supprimer</button></form></td></tr>{% endfor %}</tbody></table></div>
+</div>
+{% endblock %}

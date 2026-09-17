@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <div>
+      <div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>À propos</span></div>
+      <h1>Une histoire de goût, d’accueil et de cérémonie.</h1>
+    </div>
+    <p>TRAITEUR LOUNNA CASA accompagne les familles, les professionnels et les couples dans la préparation de repas raffinés et d’événements mémorables à Casablanca et ses environs.</p>
+  </div>
+</section>
+
+<section class="content-section">
+  <div class="container about-layout">
+    <div>
+      <div class="eyebrow">Notre maison</div>
+      <h2>Le traiteur qui donne du sens à la table.</h2>
+      <p>Nous créons des expériences culinaires inspirées du patrimoine marocain, avec une attention extrême à la qualité des produits, à la finesse des préparations et à la convivialité qui donne vie aux célébrations.</p>
+      <p>Chaque commande est pensée comme une rencontre, chaque événement comme une scène à préparer avec élégance, précision et chaleur humaine.</p>
+      <div class="grid-2" style="margin-top: 28px;">
+        <div class="info-card">
+          <div class="icon">🌿</div>
+          <h3>Produits frais</h3>
+          <p>Ingrédients sélectionnés, recettes préparées dans le respect des traditions.</p>
+        </div>
+        <div class="info-card">
+          <div class="icon">🤝</div>
+          <h3>Service à cœur</h3>
+          <p>Une équipe présente, attentive et organisée pour chaque étape du service.</p>
+        </div>
+      </div>
+    </div>
+    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80" alt="Chef traiteur" />
+  </div>
+</section>
+
+<section style="background: rgba(255,255,255,0.3);">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Valeurs</div>
+        <h2>Ce qui guide notre travail</h2>
+      </div>
+    </div>
+    <div class="grid-3">
+      <article class="info-card">
+        <div class="icon">✨</div>
+        <h3>Élégance</h3>
+        <p>Une présentation soignée et des recettes qui mettent la table en valeur.</p>
+      </article>
+      <article class="info-card">
+        <div class="icon">📦</div>
+        <h3>Fiabilité</h3>
+        <p>Des livraisons ponctuelles, des services structurés et une communication claire.</p>
+      </article>
+      <article class="info-card">
+        <div class="icon">🎯</div>
+        <h3>Personnalisation</h3>
+        <p>Chaque menu, chaque buffet, chaque cérémonie est ajusté à votre vision.</p>
+      </article>
+    </div>
+  </div>
+</section>
+{% endblock %}
