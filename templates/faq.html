@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<script type="application/ld+json">{{ {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quels types d’événements prenez-vous en charge ?", "acceptedAnswer": {"@type": "Answer", "text": "Nous intervenons pour les mariages, anniversaires, événements privés, entreprises, fêtes familiales et réceptions sur mesure."}}, {"@type": "Question", "name": "Peut-on commander en ligne pour un repas ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Le site propose un catalogue simple, avec ajout au panier, quantité et validation de commande."}}, {"@type": "Question", "name": "Travaillez-vous dans Casablanca et ses environs ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Nous intervenons à Casablanca et dans la région proche, avec service sur mesure selon le lieu et le nombre d’invités."}}, {"@type": "Question", "name": "Comment obtenir un devis pour un événement ?", "acceptedAnswer": {"@type": "Answer", "text": "Vous pouvez remplir le formulaire de réservation ou nous contacter directement sur WhatsApp pour un devis rapide."}}]}|tojson }}</script>
 <section class="page-hero">
   <div class="container page-hero-inner">
     <div>

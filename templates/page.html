@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
 <section class="page-hero"><div class="container page-hero-inner"><div><div class="breadcrumbs"><a href="{{ url_for('home') }}">Accueil</a> / <span>{{ page.name }}</span></div><h1>{% set titles = page.title|from_json %}{{ titles.get(lang, titles.get('fr')) }}</h1></div></div></section>
-<section class="content-section"><div class="container dynamic-page-content">{% if page.image %}<img src="{{ page.image }}" alt="{{ page.name }}" />{% endif %}{% set bodies = page.content|from_json %}<div>{{ bodies.get(lang, bodies.get('fr'))|safe }}</div></div></section>
+<section class="content-section"><div class="container dynamic-page-content">{% if page.image %}<img src="{{ page.image }}" alt="{{ page.name }}" loading="lazy" />{% endif %}{% set bodies = page.content|from_json %}<div>{{ bodies.get(lang, bodies.get('fr')) }}</div></div></section>
 {% endblock %}

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token }}" />
     <title>Admin TRAITEUR LOUNNA CASA</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
@@ -34,9 +35,13 @@
         </aside>
 
         <main>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}<div class="admin-flashes">{% for category, message in messages %}<div class="admin-flash {{ category }}" role="alert">{{ message }}</div>{% endfor %}</div>{% endif %}
+          {% endwith %}
           {% block content %}{% endblock %}
         </main>
       </div>
     </div>
+    <script src="{{ url_for('static', filename='js/security.js') }}"></script>
   </body>
 </html>

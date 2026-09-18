@@ -5,8 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="{{ settings.get('website_description', 'TRAITEUR LOUNNA CASA - Traiteur premium à Casablanca pour mariages, événements privés, buffets et commandes de qualité.') }}" />
     <meta name="keywords" content="{{ settings.get('keywords', 'traiteur Casablanca, cuisine marocaine, buffet mariage, catering') }}" />
+    <meta name="csrf-token" content="{{ csrf_token }}" />
+    <link rel="canonical" href="{{ canonical_url }}" />
+    {% for alternate_lang, alternate_url in alternate_urls.items() %}<link rel="alternate" hreflang="{{ alternate_lang }}" href="{{ alternate_url }}" />{% endfor %}
+    <link rel="alternate" hreflang="x-default" href="{{ canonical_url }}" />
     <meta property="og:title" content="{{ page_title or settings.get('website_title', 'TRAITEUR LOUNNA CASA') }}" />
+    <meta property="og:description" content="{{ meta_description or settings.get('website_description', 'Traiteur premium à Casablanca pour commandes et événements sur mesure.') }}" />
+    <meta property="og:url" content="{{ canonical_url }}" />
+    <meta property="og:type" content="website" />
     {% if settings.get('og_image') %}<meta property="og:image" content="{{ settings.get('og_image') }}" />{% endif %}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ page_title or settings.get('website_title', 'TRAITEUR LOUNNA CASA') }}" />
+    <meta name="twitter:description" content="{{ meta_description or settings.get('website_description', 'Traiteur premium à Casablanca pour commandes et événements sur mesure.') }}" />
+    {% if settings.get('og_image') %}<meta name="twitter:image" content="{{ settings.get('og_image') }}" />{% endif %}
     <title>{% if page_title %}{{ page_title }} | {% endif %}{{ settings.get('website_title', settings.get('company_name', 'TRAITEUR LOUNNA CASA')) }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,6 +26,7 @@
     <link rel="icon" href="{{ settings.get('favicon', 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=120&q=80') }}" />
   </head>
   <body>
+    <script type="application/ld+json">{{ schema_data|tojson }}</script>
     <div class="topbar">
       <div class="container topbar-inner">
         <div class="topbar-item topbar-location">{% if lang == 'ar' %}الدار البيضاء والمنطقة{% else %}{{ settings.get('location', 'Casablanca & surrounding areas') }}{% endif %}</div>
@@ -108,7 +120,7 @@
           <h3>{% if lang == 'ar' %}تواصل{% elif lang == 'en' %}Contact{% else %}Contact{% endif %}</h3>
           <ul>
             <li><a href="tel:{{ settings.get('phone', '+212713915287') }}">{{ settings.get('phone', '+212 713 915 287') }}</a></li>
-            <li><a href="{{ settings.get('email', 'contact@traiteurlounnacasa.ma') }}">{{ settings.get('email', 'contact@traiteurlounnacasa.ma') }}</a></li>
+            <li><a href="mailto:{{ settings.get('email', 'contact@traiteurlounnacasa.ma') }}">{{ settings.get('email', 'contact@traiteurlounnacasa.ma') }}</a></li>
             <li>{{ settings.get('location', 'Casablanca, Maroc') }}</li>
             {% if settings.get('business_hours') %}<li>{{ settings.get('business_hours') }}</li>{% endif %}
           </ul>
@@ -131,6 +143,7 @@
     </footer>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/security.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
     <script src="{{ url_for('static', filename='js/language.js') }}"></script>
   </body>

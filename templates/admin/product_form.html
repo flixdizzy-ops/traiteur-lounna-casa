@@ -29,7 +29,7 @@
       <label>Image depuis votre appareil
         <input type="file" name="image_file" accept="image/jpeg,image/png,image/webp" data-image-preview />
         <small>JPG, PNG ou WEBP. L’image actuelle est conservée si aucun fichier n’est choisi.</small>
-        <img class="upload-preview" data-preview-target src="{{ product.image if product else '/static/images/logo/hero/products/default.jpg' }}" alt="Aperçu de l’image" />
+        <img class="upload-preview" data-preview-target src="{{ product.image if product else 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80' }}" alt="Aperçu de l’image" />
         {% if product and product.image.startswith('/uploads/') %}<label><input type="checkbox" name="remove_image" /> Supprimer l’image actuelle</label>{% endif %}
       </label>
     </div>
